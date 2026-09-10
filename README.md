@@ -12,6 +12,8 @@ The dataset is fully synthetic. The system supports advisor judgment and does no
 
 ## Setup
 
+Bash:
+
 ```bash
 python -m venv .venv
 pip install -r requirements.txt
