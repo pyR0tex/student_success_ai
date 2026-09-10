@@ -1,0 +1,64 @@
+{
+  "dataset": "modeling_test.csv",
+  "note": "Locked baseline and selected ML model evaluated on the held-out test set.",
+  "selected_model": "Logistic Regression",
+  "decision_threshold": 0.5,
+  "baseline": {
+    "precision": 0.2727272727272727,
+    "recall": 0.5551601423487544,
+    "f1": 0.365767878077374,
+    "accuracy": 0.6274104683195593,
+    "true_negative": 755,
+    "false_positive": 416,
+    "false_negative": 125,
+    "true_positive": 156
+  },
+  "machine_learning": {
+    "precision": 0.2894736842105263,
+    "recall": 0.6263345195729537,
+    "f1": 0.39595050618672667,
+    "accuracy": 0.6301652892561983,
+    "true_negative": 739,
+    "false_positive": 432,
+    "false_negative": 105,
+    "true_positive": 176
+  },
+  "fairness_audit": [
+    {
+      "Audit_Group": "Audit_A",
+      "rows": 624,
+      "actual_positive_rate": 0.1971153846153846,
+      "recall": 0.6260162601626016,
+      "false_positive_rate": 0.3652694610778443,
+      "false_negative_rate": 0.37398373983739835,
+      "true_negative": 318,
+      "false_positive": 183,
+      "false_negative": 46,
+      "true_positive": 77
+    },
+    {
+      "Audit_Group": "Audit_B",
+      "rows": 552,
+      "actual_positive_rate": 0.17753623188405798,
+      "recall": 0.6326530612244898,
+      "false_positive_rate": 0.34140969162995594,
+      "false_negative_rate": 0.3673469387755102,
+      "true_negative": 299,
+      "false_positive": 155,
+      "false_negative": 36,
+      "true_positive": 62
+    },
+    {
+      "Audit_Group": "Audit_C",
+      "rows": 276,
+      "actual_positive_rate": 0.21739130434782608,
+      "recall": 0.6166666666666667,
+      "false_positive_rate": 0.4351851851851852,
+      "false_negative_rate": 0.38333333333333336,
+      "true_negative": 122,
+      "false_positive": 94,
+      "false_negative": 23,
+      "true_positive": 37
+    }
+  ]
+}

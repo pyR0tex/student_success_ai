@@ -1,0 +1,18 @@
+{
+  "cases": 12,
+  "valid_plans": 12,
+  "invalid_plans": 0,
+  "cases_with_no_recommended_courses": 0,
+  "planning_terms": [
+    "T6_Spring",
+    "T7_Fall"
+  ],
+  "method": "Constraint-based two-term search over feasible course subsets",
+  "objective": "Maximize courses that satisfy remaining degree requirements; prioritize core courses, then needed program electives, then degree-progress credits.",
+  "planning_assumption": "T6_Spring planned courses are assumed successfully completed before T7_Fall prerequisite checks.",
+  "outputs": {
+    "course_plans": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\plans\\advisor_case_course_plans.csv",
+    "plan_summary": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\plans\\advisor_case_plan_summary.csv",
+    "plans_json": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\plans\\advisor_case_plans.json"
+  }
+}

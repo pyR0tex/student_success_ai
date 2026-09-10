@@ -1,0 +1,15 @@
+{
+  "cases": 12,
+  "advisor_review_flags": 6,
+  "not_flagged": 6,
+  "valid_plans": 12,
+  "decision_logs_written": 12,
+  "model": "Logistic Regression",
+  "decision_threshold": 0.5,
+  "human_review_required": true,
+  "outputs": {
+    "case_studies_json": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\cases\\advisor_case_studies.json",
+    "case_studies_csv": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\cases\\advisor_case_study_summary.csv",
+    "decision_log": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\logs\\advisor_case_decision_log.jsonl"
+  }
+}

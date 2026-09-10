@@ -1,0 +1,13 @@
+Case_ID,Student_ID,Program_ID,Maximum_Recommended_Credits,T6_Spring_Credits,T7_Fall_Credits,Planned_Requirement_Courses,Planned_Core_Courses,Planned_Elective_Courses,Validation_Passed,Validation_Issue_Count
+Case_01,Student_1461,Program_A,15,4,6,3,1,2,True,0
+Case_02,Student_1184,Program_A,15,3,7,3,3,0,True,0
+Case_03,Student_1727,Program_A,15,3,10,4,3,1,True,0
+Case_04,Student_0124,Program_B,15,10,9,6,4,2,True,0
+Case_05,Student_2160,Program_B,18,3,3,2,2,0,True,0
+Case_06,Student_1248,Program_B,18,3,6,3,3,0,True,0
+Case_07,Student_0423,Program_C,15,10,9,6,6,0,True,0
+Case_08,Student_0704,Program_C,18,6,3,3,1,2,True,0
+Case_09,Student_0773,Program_C,15,3,9,4,2,2,True,0
+Case_10,Student_0217,Program_D,12,10,9,6,6,0,True,0
+Case_11,Student_0503,Program_D,12,3,6,3,3,0,True,0
+Case_12,Student_1189,Program_D,15,7,6,4,3,1,True,0

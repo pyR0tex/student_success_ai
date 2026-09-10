@@ -1,0 +1,313 @@
+[
+  {
+    "Student_ID": "Student_1461",
+    "Program_ID": "Program_A",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 11,
+    "Remaining_Core_Before_Plan": 1,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_A_C12"
+    ],
+    "T7_Fall": [
+      "Program_A_C13",
+      "Program_A_C14"
+    ],
+    "T6_Spring_Credits": 4,
+    "T7_Fall_Credits": 6,
+    "Planned_Requirement_Courses": 3,
+    "Planned_Core_Courses": 1,
+    "Planned_Elective_Courses": 2,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_01"
+  },
+  {
+    "Student_ID": "Student_1184",
+    "Program_ID": "Program_A",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 6,
+    "Remaining_Core_Before_Plan": 6,
+    "Completed_Elective_Count": 2,
+    "Remaining_Electives_Before_Plan": 0,
+    "T6_Spring": [
+      "Program_A_C02"
+    ],
+    "T7_Fall": [
+      "Program_A_C04",
+      "Program_A_C05"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 7,
+    "Planned_Requirement_Courses": 3,
+    "Planned_Core_Courses": 3,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_02"
+  },
+  {
+    "Student_ID": "Student_1727",
+    "Program_ID": "Program_A",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 6,
+    "Remaining_Core_Before_Plan": 6,
+    "Completed_Elective_Count": 1,
+    "Remaining_Electives_Before_Plan": 1,
+    "T6_Spring": [
+      "Program_A_C02"
+    ],
+    "T7_Fall": [
+      "Program_A_C04",
+      "Program_A_C05",
+      "Program_A_C14"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 10,
+    "Planned_Requirement_Courses": 4,
+    "Planned_Core_Courses": 3,
+    "Planned_Elective_Courses": 1,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_03"
+  },
+  {
+    "Student_ID": "Student_0124",
+    "Program_ID": "Program_B",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 6,
+    "Remaining_Core_Before_Plan": 6,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_B_C08",
+      "Program_B_C09",
+      "Program_B_C10"
+    ],
+    "T7_Fall": [
+      "Program_B_C07",
+      "Program_B_C13",
+      "Program_B_C14"
+    ],
+    "T6_Spring_Credits": 10,
+    "T7_Fall_Credits": 9,
+    "Planned_Requirement_Courses": 6,
+    "Planned_Core_Courses": 4,
+    "Planned_Elective_Courses": 2,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_04"
+  },
+  {
+    "Student_ID": "Student_2160",
+    "Program_ID": "Program_B",
+    "Maximum_Recommended_Credits": 18,
+    "Completed_Core_Count": 6,
+    "Remaining_Core_Before_Plan": 6,
+    "Completed_Elective_Count": 2,
+    "Remaining_Electives_Before_Plan": 0,
+    "T6_Spring": [
+      "Program_B_C01"
+    ],
+    "T7_Fall": [
+      "Program_B_C03"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 3,
+    "Planned_Requirement_Courses": 2,
+    "Planned_Core_Courses": 2,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_05"
+  },
+  {
+    "Student_ID": "Student_1248",
+    "Program_ID": "Program_B",
+    "Maximum_Recommended_Credits": 18,
+    "Completed_Core_Count": 1,
+    "Remaining_Core_Before_Plan": 11,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_B_C02"
+    ],
+    "T7_Fall": [
+      "Program_B_C03",
+      "Program_B_C05"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 6,
+    "Planned_Requirement_Courses": 3,
+    "Planned_Core_Courses": 3,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_06"
+  },
+  {
+    "Student_ID": "Student_0423",
+    "Program_ID": "Program_C",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 4,
+    "Remaining_Core_Before_Plan": 8,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_C_C05",
+      "Program_C_C06",
+      "Program_C_C08"
+    ],
+    "T7_Fall": [
+      "Program_C_C07",
+      "Program_C_C09",
+      "Program_C_C10"
+    ],
+    "T6_Spring_Credits": 10,
+    "T7_Fall_Credits": 9,
+    "Planned_Requirement_Courses": 6,
+    "Planned_Core_Courses": 6,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_07"
+  },
+  {
+    "Student_ID": "Student_0704",
+    "Program_ID": "Program_C",
+    "Maximum_Recommended_Credits": 18,
+    "Completed_Core_Count": 7,
+    "Remaining_Core_Before_Plan": 5,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_C_C13",
+      "Program_C_C16"
+    ],
+    "T7_Fall": [
+      "Program_C_C03"
+    ],
+    "T6_Spring_Credits": 6,
+    "T7_Fall_Credits": 3,
+    "Planned_Requirement_Courses": 3,
+    "Planned_Core_Courses": 1,
+    "Planned_Elective_Courses": 2,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_08"
+  },
+  {
+    "Student_ID": "Student_0773",
+    "Program_ID": "Program_C",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 6,
+    "Remaining_Core_Before_Plan": 6,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_C_C02"
+    ],
+    "T7_Fall": [
+      "Program_C_C05",
+      "Program_C_C14",
+      "Program_C_C15"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 9,
+    "Planned_Requirement_Courses": 4,
+    "Planned_Core_Courses": 2,
+    "Planned_Elective_Courses": 2,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_09"
+  },
+  {
+    "Student_ID": "Student_0217",
+    "Program_ID": "Program_D",
+    "Maximum_Recommended_Credits": 12,
+    "Completed_Core_Count": 3,
+    "Remaining_Core_Before_Plan": 9,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_D_C04",
+      "Program_D_C05",
+      "Program_D_C06"
+    ],
+    "T7_Fall": [
+      "Program_D_C07",
+      "Program_D_C09",
+      "Program_D_C10"
+    ],
+    "T6_Spring_Credits": 10,
+    "T7_Fall_Credits": 9,
+    "Planned_Requirement_Courses": 6,
+    "Planned_Core_Courses": 6,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_10"
+  },
+  {
+    "Student_ID": "Student_0503",
+    "Program_ID": "Program_D",
+    "Maximum_Recommended_Credits": 12,
+    "Completed_Core_Count": 1,
+    "Remaining_Core_Before_Plan": 11,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_D_C02"
+    ],
+    "T7_Fall": [
+      "Program_D_C03",
+      "Program_D_C05"
+    ],
+    "T6_Spring_Credits": 3,
+    "T7_Fall_Credits": 6,
+    "Planned_Requirement_Courses": 3,
+    "Planned_Core_Courses": 3,
+    "Planned_Elective_Courses": 0,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_11"
+  },
+  {
+    "Student_ID": "Student_1189",
+    "Program_ID": "Program_D",
+    "Maximum_Recommended_Credits": 15,
+    "Completed_Core_Count": 8,
+    "Remaining_Core_Before_Plan": 4,
+    "Completed_Elective_Count": 0,
+    "Remaining_Electives_Before_Plan": 2,
+    "T6_Spring": [
+      "Program_D_C06",
+      "Program_D_C12"
+    ],
+    "T7_Fall": [
+      "Program_D_C10",
+      "Program_D_C13"
+    ],
+    "T6_Spring_Credits": 7,
+    "T7_Fall_Credits": 6,
+    "Planned_Requirement_Courses": 4,
+    "Planned_Core_Courses": 3,
+    "Planned_Elective_Courses": 1,
+    "Planning_Assumption": "A T6_Spring course is treated as successfully completed before it can satisfy a prerequisite for T7_Fall; the plan must be revisited if that assumption fails.",
+    "Validation_Passed": true,
+    "Validation_Issues": [],
+    "Case_ID": "Case_12"
+  }
+]

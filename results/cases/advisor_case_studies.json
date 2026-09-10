@@ -1,0 +1,709 @@
+[
+  {
+    "Case_ID": "Case_01",
+    "Student_ID": "Student_1461",
+    "Program_ID": "Program_A",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.370621,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 0,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "Credits_Completed",
+          "label": "credits completed",
+          "observed_value": "102",
+          "contribution": -0.2021,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.1641,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.0991,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_A_C12"
+      ],
+      "T6_Spring_Credits": 4,
+      "T7_Fall": [
+        "Program_A_C13",
+        "Program_A_C14"
+      ],
+      "T7_Fall_Credits": 6,
+      "Planned_Requirement_Courses": 3,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 1 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_02",
+    "Student_ID": "Student_1184",
+    "Program_ID": "Program_A",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.494534,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 0,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.1641,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.0991,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Credits_Completed",
+          "label": "credits completed",
+          "observed_value": "71",
+          "contribution": -0.0741,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_A_C02"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_A_C04",
+        "Program_A_C05"
+      ],
+      "T7_Fall_Credits": 7,
+      "Planned_Requirement_Courses": 3,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 6 core course(s) and 0 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. The score is close to the 0.50 decision threshold, so the classification should be treated as especially uncertain. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_03",
+    "Student_ID": "Student_1727",
+    "Program_ID": "Program_A",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.625873,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 4,
+      "Baseline_Flag": true,
+      "Observed_Evidence": [
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "65.1%",
+          "contribution": 0.367,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Days_Since_Last_LMS_Activity",
+          "label": "days since last LMS activity",
+          "observed_value": "5",
+          "contribution": 0.2479,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Current_Course_Load_Credits",
+          "label": "current course-load credits",
+          "observed_value": "18",
+          "contribution": 0.1313,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_A_C02"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_A_C04",
+        "Program_A_C05",
+        "Program_A_C14"
+      ],
+      "T7_Fall_Credits": 10,
+      "Planned_Requirement_Courses": 4,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 6 core course(s) and 1 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_04",
+    "Student_ID": "Student_0124",
+    "Program_ID": "Program_B",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.232903,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 0,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "GPA_Change",
+          "label": "GPA change",
+          "observed_value": "0.71",
+          "contribution": -0.4786,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "100.0%",
+          "contribution": -0.209,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Late_Assignment_Rate_4wk",
+          "label": "four-week late-assignment rate",
+          "observed_value": "0.0%",
+          "contribution": -0.1374,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_B_C08",
+        "Program_B_C09",
+        "Program_B_C10"
+      ],
+      "T6_Spring_Credits": 10,
+      "T7_Fall": [
+        "Program_B_C07",
+        "Program_B_C13",
+        "Program_B_C14"
+      ],
+      "T7_Fall_Credits": 9,
+      "Planned_Requirement_Courses": 6,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 6 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_05",
+    "Student_ID": "Student_2160",
+    "Program_ID": "Program_B",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.399941,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 1,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.1641,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Average_Assignment_Score_4wk",
+          "label": "four-week average assignment score",
+          "observed_value": "92.50",
+          "contribution": -0.1104,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.0991,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_B_C01"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_B_C03"
+      ],
+      "T7_Fall_Credits": 3,
+      "Planned_Requirement_Courses": 2,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 18 credits per term.",
+        "Remaining before planning: 6 core course(s) and 0 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_06",
+    "Student_ID": "Student_1248",
+    "Program_ID": "Program_B",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.775765,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 5,
+      "Baseline_Flag": true,
+      "Observed_Evidence": [
+        {
+          "feature": "Days_Since_Last_LMS_Activity",
+          "label": "days since last LMS activity",
+          "observed_value": "7",
+          "contribution": 0.4324,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "68.0%",
+          "contribution": 0.3191,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "GPA_Change",
+          "label": "GPA change",
+          "observed_value": "-0.40",
+          "contribution": 0.268,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_B_C02"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_B_C03",
+        "Program_B_C05"
+      ],
+      "T7_Fall_Credits": 6,
+      "Planned_Requirement_Courses": 3,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 18 credits per term.",
+        "Remaining before planning: 11 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_07",
+    "Student_ID": "Student_0423",
+    "Program_ID": "Program_C",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.268676,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 0,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "GPA_Change",
+          "label": "GPA change",
+          "observed_value": "0.44",
+          "contribution": -0.297,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Days_Since_Last_LMS_Activity",
+          "label": "days since last LMS activity",
+          "observed_value": "0",
+          "contribution": -0.2134,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.1641,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_C_C05",
+        "Program_C_C06",
+        "Program_C_C08"
+      ],
+      "T6_Spring_Credits": 10,
+      "T7_Fall": [
+        "Program_C_C07",
+        "Program_C_C09",
+        "Program_C_C10"
+      ],
+      "T7_Fall_Credits": 9,
+      "Planned_Requirement_Courses": 6,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 8 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_08",
+    "Student_ID": "Student_0704",
+    "Program_ID": "Program_C",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.536995,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 2,
+      "Baseline_Flag": true,
+      "Observed_Evidence": [
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "1",
+          "contribution": 0.2128,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "78.9%",
+          "contribution": 0.1392,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "LMS_Login_Days_4wk",
+          "label": "LMS login days over four weeks",
+          "observed_value": "2.61",
+          "contribution": 0.099,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_C_C13",
+        "Program_C_C16"
+      ],
+      "T6_Spring_Credits": 6,
+      "T7_Fall": [
+        "Program_C_C03"
+      ],
+      "T7_Fall_Credits": 3,
+      "Planned_Requirement_Courses": 3,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 18 credits per term.",
+        "Remaining before planning: 5 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. The score is close to the 0.50 decision threshold, so the classification should be treated as especially uncertain. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_09",
+    "Student_ID": "Student_0773",
+    "Program_ID": "Program_C",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.623268,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 4,
+      "Baseline_Flag": true,
+      "Observed_Evidence": [
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "70.8%",
+          "contribution": 0.2729,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "1",
+          "contribution": 0.211,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "GPA_Change",
+          "label": "GPA change",
+          "observed_value": "-0.21",
+          "contribution": 0.1402,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_C_C02"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_C_C05",
+        "Program_C_C14",
+        "Program_C_C15"
+      ],
+      "T7_Fall_Credits": 9,
+      "Planned_Requirement_Courses": 4,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 6 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_10",
+    "Student_ID": "Student_0217",
+    "Program_ID": "Program_D",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.399835,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": false,
+      "Baseline_Risk_Count": 0,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "GPA_Change",
+          "label": "GPA change",
+          "observed_value": "0.34",
+          "contribution": -0.2297,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Failed_Courses_Last_2_Terms",
+          "label": "failed courses in the last two terms",
+          "observed_value": "0",
+          "contribution": -0.1641,
+          "direction": "lower estimated risk"
+        },
+        {
+          "feature": "Academic_Level",
+          "label": "academic level",
+          "observed_value": "1",
+          "contribution": -0.1185,
+          "direction": "lower estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_D_C04",
+        "Program_D_C05",
+        "Program_D_C06"
+      ],
+      "T6_Spring_Credits": 10,
+      "T7_Fall": [
+        "Program_D_C07",
+        "Program_D_C09",
+        "Program_D_C10"
+      ],
+      "T7_Fall_Credits": 9,
+      "Planned_Requirement_Courses": 6,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 12 credits per term.",
+        "Remaining before planning: 9 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_11",
+    "Student_ID": "Student_0503",
+    "Program_ID": "Program_D",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.58487,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 3,
+      "Baseline_Flag": true,
+      "Observed_Evidence": [
+        {
+          "feature": "Assignment_Submission_Rate_4wk",
+          "label": "four-week assignment submission rate",
+          "observed_value": "73.4%",
+          "contribution": 0.23,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "1",
+          "contribution": 0.2128,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Credits_Completed",
+          "label": "credits completed",
+          "observed_value": "16",
+          "contribution": 0.153,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_D_C02"
+      ],
+      "T6_Spring_Credits": 3,
+      "T7_Fall": [
+        "Program_D_C03",
+        "Program_D_C05"
+      ],
+      "T7_Fall_Credits": 6,
+      "Planned_Requirement_Courses": 3,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 12 credits per term.",
+        "Remaining before planning: 11 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  },
+  {
+    "Case_ID": "Case_12",
+    "Student_ID": "Student_1189",
+    "Program_ID": "Program_D",
+    "Early_Signal": {
+      "Model": "Logistic Regression",
+      "Risk_Score": 0.538042,
+      "Decision_Threshold": 0.5,
+      "Advisor_Review_Flag": true,
+      "Baseline_Risk_Count": 1,
+      "Baseline_Flag": false,
+      "Observed_Evidence": [
+        {
+          "feature": "Days_Since_Last_LMS_Activity",
+          "label": "days since last LMS activity",
+          "observed_value": "5",
+          "contribution": 0.2479,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Withdrawals_Last_2_Terms",
+          "label": "withdrawals in the last two terms",
+          "observed_value": "1",
+          "contribution": 0.2128,
+          "direction": "higher estimated risk"
+        },
+        {
+          "feature": "Average_Assignment_Score_4wk",
+          "label": "four-week average assignment score",
+          "observed_value": "56.70",
+          "contribution": 0.1612,
+          "direction": "higher estimated risk"
+        }
+      ]
+    },
+    "Academic_Plan": {
+      "T6_Spring": [
+        "Program_D_C06",
+        "Program_D_C12"
+      ],
+      "T6_Spring_Credits": 7,
+      "T7_Fall": [
+        "Program_D_C10",
+        "Program_D_C13"
+      ],
+      "T7_Fall_Credits": 6,
+      "Planned_Requirement_Courses": 4,
+      "Validation_Passed": true,
+      "Validation_Issues": [],
+      "Constraints_and_Assumptions": [
+        "Maximum recommended load: 15 credits per term.",
+        "Remaining before planning: 4 core course(s) and 2 elective requirement(s).",
+        "Courses are limited to T6_Spring/T7_Fall offerings and must satisfy prerequisites.",
+        "Spring selections may satisfy Fall prerequisites under the stated successful-completion assumption."
+      ]
+    },
+    "Uncertainty_and_Oversight": "The risk score is a statistical early signal, not a diagnosis or explanation of why a student may need support. Important context available to a real advisor may be absent from the synthetic data. The score is close to the 0.50 decision threshold, so the classification should be treated as especially uncertain. Any academic plan requires advisor review, and Fall prerequisite assumptions must be revisited if planned Spring courses are not completed successfully.",
+    "Human_Review_Required": true
+  }
+]

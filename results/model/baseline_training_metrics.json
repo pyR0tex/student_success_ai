@@ -1,0 +1,22 @@
+{
+  "dataset": "modeling_train.csv",
+  "note": "Training-only development result; held-out test set not used.",
+  "thresholds": {
+    "GPA_Change": -0.2,
+    "Course_Pass_Rate_Last_2_Terms": 0.8,
+    "Assignment_Submission_Rate_4wk": 0.8,
+    "Late_Assignment_Rate_4wk": 0.25,
+    "Days_Since_Last_LMS_Activity": 4
+  },
+  "minimum_risk_indicators": 2,
+  "flagged_rows": 2015,
+  "flag_rate": 0.39141414141414144,
+  "precision": 0.2883374689826303,
+  "recall": 0.5570469798657718,
+  "f1": 0.37998691955526487,
+  "accuracy": 0.6317016317016317,
+  "true_negative": 2671,
+  "false_positive": 1434,
+  "false_negative": 462,
+  "true_positive": 581
+}

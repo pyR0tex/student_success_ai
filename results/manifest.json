@@ -1,0 +1,136 @@
+{
+  "generated_at_utc": "2026-09-10T09:24:54.365610+00:00",
+  "note": "Derived project results only. Raw professor-provided synthetic dataset files are not included.",
+  "files": [
+    {
+      "path": "results/cases/advisor_case_run_summary.json",
+      "size_bytes": 644,
+      "sha256": "0c75442c4f1009234ca594a9cfe7cb5448827f99fda49f025d7dadd253312eab"
+    },
+    {
+      "path": "results/cases/advisor_case_studies.json",
+      "size_bytes": 27841,
+      "sha256": "c61828477f21fb5fd84bd5f067ea2428777df6d30229b5190d226e800f917d39"
+    },
+    {
+      "path": "results/cases/advisor_case_study_summary.csv",
+      "size_bytes": 3799,
+      "sha256": "20ba7e0782361fe9419b2d994ffe98548a49751c55babe2d19c1539f30726893"
+    },
+    {
+      "path": "results/data/data_understanding_summary.json",
+      "size_bytes": 445,
+      "sha256": "6a4347ddf01c87660ae85cd754b451c97d71bc0e81cf67efb70aa3519c3c2d0a"
+    },
+    {
+      "path": "results/data/training_feature_correlations.csv",
+      "size_bytes": 601,
+      "sha256": "8598bdadc77ea7981027a516428ddc260225b4cb7dcd1486fcb397d7a0d4984e"
+    },
+    {
+      "path": "results/data/training_feature_means_by_target.csv",
+      "size_bytes": 812,
+      "sha256": "d350f438b638f64321d747384d897a38872424f8eef951e3a93592bf3aacca09"
+    },
+    {
+      "path": "results/figures/baseline_heldout_confusion_matrix.png",
+      "size_bytes": 28531,
+      "sha256": "1d3d59ff822f4f5fb4ebd90cef7cc890a655df22e63965c34ee0c5e434fd02b2"
+    },
+    {
+      "path": "results/figures/fairness_error_rates.png",
+      "size_bytes": 40498,
+      "sha256": "66f73ac938a2ce85c96107920e9683d545b3897d9e3f637d758bd145a9c97ac1"
+    },
+    {
+      "path": "results/figures/heldout_test_metric_comparison.png",
+      "size_bytes": 34886,
+      "sha256": "f081660273f69234ae8e133236f4247b14762256c2e412c9724c87a2b66284a5"
+    },
+    {
+      "path": "results/figures/ml_heldout_confusion_matrix.png",
+      "size_bytes": 30240,
+      "sha256": "a58386649e8169fe6d729af5f3cad8e50f037a12b790ce23e8f28bb3611a0ddb"
+    },
+    {
+      "path": "results/logs/advisor_case_decision_log.jsonl",
+      "size_bytes": 16820,
+      "sha256": "0c7df8b85a0cfda1cde9ab5600ddfdebd8abe83fc1c027e3309bc55d259452dd"
+    },
+    {
+      "path": "results/model/baseline_training_metrics.json",
+      "size_bytes": 663,
+      "sha256": "3c53e48582c423a7f80c87329514347ec6414511f94e42a6aa2899d858517c82"
+    },
+    {
+      "path": "results/model/failure_analysis.json",
+      "size_bytes": 2456,
+      "sha256": "8fe285ebf6868f3cc9ace76e32be10de849d1583dc559d2c2d26c5f511e18617"
+    },
+    {
+      "path": "results/model/failure_analysis_summary.csv",
+      "size_bytes": 801,
+      "sha256": "3b981af044ed92c68662494653bb79a0cb76f38245b31f48f7870e276ab1849f"
+    },
+    {
+      "path": "results/model/fairness_error_pattern_audit.csv",
+      "size_bytes": 457,
+      "sha256": "c7da706c79bc98e29168ace040f68fa08738775141add864f546b40deb8a159e"
+    },
+    {
+      "path": "results/model/heldout_evaluation_summary.json",
+      "size_bytes": 1899,
+      "sha256": "316bfea7cab8ed443ded2189855eff92604faa7d4a74327436e9bdd677f0d69a"
+    },
+    {
+      "path": "results/model/heldout_test_comparison.csv",
+      "size_bytes": 344,
+      "sha256": "e0b8d830017b43e3fd106aeb9ff3c068a714e1b17f4815567879b646fa0b36ce"
+    },
+    {
+      "path": "results/model/logistic_regression_coefficients.csv",
+      "size_bytes": 1468,
+      "sha256": "c4c856be71ef5abb0b65758edfdbcf2148cd7d223243972e89e0e67ba62e8117"
+    },
+    {
+      "path": "results/model/model_development_comparison.csv",
+      "size_bytes": 607,
+      "sha256": "28422f479be1f011efda62c08527c2b5390cde3dede3a11c51cd5f0570d5893b"
+    },
+    {
+      "path": "results/model/model_development_summary.json",
+      "size_bytes": 1921,
+      "sha256": "9857210a13c911249a41591f3bd71337a592eac990d7e68a0f09b669ccc04944"
+    },
+    {
+      "path": "results/model/required_pipeline_summary.json",
+      "size_bytes": 958,
+      "sha256": "41a87fa27790ba469e7aeeabb06ac2f612fbf6606567d316174e7b1765f4b2e0"
+    },
+    {
+      "path": "results/planner/academic_planner_summary.json",
+      "size_bytes": 945,
+      "sha256": "ad6f92788a5b3bbb6f8f3a3e22096f1a3c8354ab9b963406d3861af6db64d96d"
+    },
+    {
+      "path": "results/planner/advisor_case_course_plans.csv",
+      "size_bytes": 3828,
+      "sha256": "43ad4e9699f1b9204a7dac2d6979a6befabc12e162422daff8dc35fb9825710a"
+    },
+    {
+      "path": "results/planner/advisor_case_plan_summary.csv",
+      "size_bytes": 836,
+      "sha256": "3bc883df3b23ae8d7d87e98cd4d28a149d54b5e4a87ac7811ec00554a30b665c"
+    },
+    {
+      "path": "results/planner/advisor_case_plans.json",
+      "size_bytes": 10258,
+      "sha256": "8c65b7c394d83abcdc74cfbd597d5e3787f5884fb380bef4113a7048cc7bfc43"
+    },
+    {
+      "path": "results/presentation_data.json",
+      "size_bytes": 3719,
+      "sha256": "b78475daef973b576f9ac1038dd89e8f6206210aea5c183e067d7f8e1058e53f"
+    }
+  ]
+}

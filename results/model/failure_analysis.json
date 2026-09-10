@@ -1,0 +1,48 @@
+[
+  {
+    "Error_Type": "False Negative",
+    "Student_ID": "Student_1383",
+    "Observation_Term": "T3_Fall",
+    "Actual_Outcome": 1,
+    "ML_Prediction": 0,
+    "ML_Risk_Score": 0.1837,
+    "Observed_Features": {
+      "Prior_Term_GPA": 2.81,
+      "GPA_Change": 0.74,
+      "Course_Pass_Rate_Last_2_Terms": 0.867,
+      "Failed_Courses_Last_2_Terms": 0,
+      "Withdrawals_Last_2_Terms": 0,
+      "LMS_Login_Days_4wk": 3.53,
+      "Assignment_Submission_Rate_4wk": 1.0,
+      "Late_Assignment_Rate_4wk": 0.047,
+      "Average_Assignment_Score_4wk": 80.9,
+      "Days_Since_Last_LMS_Activity": 0
+    },
+    "Interpretation": "The model assigned a low risk score even though the held-out outcome indicated intervention was needed. This shows that apparently favorable observed signals do not guarantee that a student will not need support.",
+    "Potential_Consequence": "A student who may need support could be missed or reviewed later than appropriate.",
+    "Potential_Improvement": "Keep advisor judgment in the loop and consider richer longitudinal/contextual evidence in future versions; the current signals should not be treated as a complete explanation of student need."
+  },
+  {
+    "Error_Type": "False Positive",
+    "Student_ID": "Student_0880",
+    "Observation_Term": "T2_Spring",
+    "Actual_Outcome": 0,
+    "ML_Prediction": 1,
+    "ML_Risk_Score": 0.902924,
+    "Observed_Features": {
+      "Prior_Term_GPA": 2.14,
+      "GPA_Change": -1.34,
+      "Course_Pass_Rate_Last_2_Terms": 0.753,
+      "Failed_Courses_Last_2_Terms": 1,
+      "Withdrawals_Last_2_Terms": 1,
+      "LMS_Login_Days_4wk": 1.76,
+      "Assignment_Submission_Rate_4wk": 0.564,
+      "Late_Assignment_Rate_4wk": 0.355,
+      "Average_Assignment_Score_4wk": 58.5,
+      "Days_Since_Last_LMS_Activity": 3
+    },
+    "Interpretation": "The model assigned a high risk score even though the held-out outcome indicated no intervention was needed. This shows that concerning academic or engagement signals are not themselves causes or guarantees of difficulty.",
+    "Potential_Consequence": "An unnecessary flag could consume advisor time or create avoidable concern if communicated as a diagnosis.",
+    "Potential_Improvement": "Use the score only to prioritize human review, provide the supporting evidence and uncertainty, and require an advisor to consider additional context before any outreach or academic action."
+  }
+]

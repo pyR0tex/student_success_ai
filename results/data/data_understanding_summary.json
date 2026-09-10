@@ -1,0 +1,18 @@
+{
+  "training_rows": 5148,
+  "training_students": 1716,
+  "test_rows": 1452,
+  "test_students": 484,
+  "current_rows": 2200,
+  "train_test_student_overlap": 0,
+  "positive_training_examples": 1043,
+  "negative_training_examples": 4105,
+  "positive_training_rate": 0.2026029526029526,
+  "missing_cells_in_training": 0,
+  "duplicate_training_rows": 0,
+  "observation_terms": [
+    "T2_Spring",
+    "T3_Fall",
+    "T4_Spring"
+  ]
+}

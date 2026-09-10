@@ -1,0 +1,27 @@
+{
+  "completed": true,
+  "execution_order": [
+    "Data Understanding",
+    "Rule-Based Baseline",
+    "Machine-Learning Early-Signal Model",
+    "Held-Out Evaluation + Fairness/Error-Pattern Audit",
+    "Academic Plan Generation + Validation",
+    "End-to-End Advisor Case Studies + Decision Logging",
+    "Failure Analysis"
+  ],
+  "key_checks": {
+    "train_test_student_overlap": 0,
+    "heldout_selected_model": "Logistic Regression",
+    "heldout_decision_threshold": 0.5,
+    "valid_advisor_case_plans": 12,
+    "invalid_advisor_case_plans": 0,
+    "advisor_cases_logged": 12,
+    "heldout_false_negatives": 105,
+    "heldout_false_positives": 432
+  },
+  "notes": [
+    "modeling_test.csv is used only for final held-out evaluation and failure analysis.",
+    "Audit_Group is used only after prediction for the fairness/error-pattern audit.",
+    "Academic plans require independent validation and human advisor review."
+  ]
+}

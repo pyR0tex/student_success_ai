@@ -1,0 +1,56 @@
+{
+  "dataset": "modeling_train.csv",
+  "validation_method": "5-fold stratified group cross-validation by Student_ID",
+  "held_out_test_used": false,
+  "selected_model": "Logistic Regression",
+  "selection_rule": "Highest cross-validated F1; recall used as tie-breaker.",
+  "model_file": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\models\\early_signal_model.joblib",
+  "coefficient_file": "C:\\Users\\rohit\\Desktop\\Ro\\Projects\\student_success_ai\\outputs\\metrics\\logistic_regression_coefficients.csv",
+  "models": [
+    {
+      "model": "Logistic Regression",
+      "cv_folds": 5,
+      "decision_threshold": 0.5,
+      "precision": 0.30977229601518025,
+      "recall": 0.62607861936721,
+      "f1": 0.414471596318629,
+      "accuracy": 0.6416083916083916,
+      "roc_auc": 0.6749671553176855,
+      "flag_rate": 0.4094794094794095,
+      "true_negative": 2650,
+      "false_positive": 1455,
+      "false_negative": 390,
+      "true_positive": 653
+    },
+    {
+      "model": "Random Forest",
+      "cv_folds": 5,
+      "decision_threshold": 0.5,
+      "precision": 0.3407725321888412,
+      "recall": 0.38063279002876316,
+      "f1": 0.3596014492753623,
+      "accuracy": 0.7253302253302253,
+      "roc_auc": 0.6581114395254951,
+      "flag_rate": 0.2263014763014763,
+      "true_negative": 3337,
+      "false_positive": 768,
+      "false_negative": 646,
+      "true_positive": 397
+    },
+    {
+      "model": "Gradient Boosting",
+      "cv_folds": 5,
+      "decision_threshold": 0.5,
+      "precision": 0.3167062549485352,
+      "recall": 0.3835091083413231,
+      "f1": 0.3469210754553339,
+      "accuracy": 0.7074592074592074,
+      "roc_auc": 0.6306447600907622,
+      "flag_rate": 0.24533799533799533,
+      "true_negative": 3242,
+      "false_positive": 863,
+      "false_negative": 643,
+      "true_positive": 400
+    }
+  ]
+}
