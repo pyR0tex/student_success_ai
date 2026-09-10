@@ -15,6 +15,8 @@ from src.early_signal_model import (
 from src.evaluation import classification_metrics
 from src.heldout_evaluation import evaluate_heldout_test
 from src.academic_planner import generate_advisor_case_plans
+from src.case_studies import generate_end_to_end_case_studies
+from src.failure_analysis import analyze_heldout_failures
 
 
 def run_training_baseline() -> dict:
@@ -122,6 +124,16 @@ def main() -> None:
         action="store_true",
         help="Generate and independently validate two-term academic plans for the required advisor cases.",
     )
+    parser.add_argument(
+        "--run-case-studies",
+        action="store_true",
+        help="Run the full early-signal + planning flow for the required advisor cases and write decision logs.",
+    )
+    parser.add_argument(
+        "--analyze-failures",
+        action="store_true",
+        help="Analyze representative false-negative and false-positive failures from the held-out evaluation.",
+    )
     args = parser.parse_args()
 
     if args.inspect_data:
@@ -140,6 +152,12 @@ def main() -> None:
     elif args.generate_plans:
         print("Constraint-based academic plan generation")
         pprint(generate_advisor_case_plans())
+    elif args.run_case_studies:
+        print("End-to-end advisor case studies and decision logging")
+        pprint(generate_end_to_end_case_studies())
+    elif args.analyze_failures:
+        print("Held-out failure analysis")
+        pprint(analyze_heldout_failures())
     else:
         parser.print_help()
 
