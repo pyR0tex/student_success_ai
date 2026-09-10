@@ -271,7 +271,6 @@ def reproducibility(summary):
 def main():
     st.set_page_config(page_title="Student Success · Course Demo", layout="wide")
     st.title("Student Success Early-Signal & Academic Planning System")
-    st.caption("University AI course demo · synthetic-data decision support · saved results")
     st.info("Early signals for advisor review, not diagnoses or autonomous academic decisions.")
     summary = read_result("presentation_data.json")
     st.sidebar.title("Presentation")
