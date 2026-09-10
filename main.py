@@ -14,6 +14,7 @@ from src.early_signal_model import (
 )
 from src.evaluation import classification_metrics
 from src.heldout_evaluation import evaluate_heldout_test
+from src.academic_planner import generate_advisor_case_plans
 
 
 def run_training_baseline() -> dict:
@@ -116,6 +117,11 @@ def main() -> None:
         action="store_true",
         help="Evaluate the locked baseline and selected ML model on the held-out test set and run the fairness audit.",
     )
+    parser.add_argument(
+        "--generate-plans",
+        action="store_true",
+        help="Generate and independently validate two-term academic plans for the required advisor cases.",
+    )
     args = parser.parse_args()
 
     if args.inspect_data:
@@ -131,6 +137,9 @@ def main() -> None:
         print("Held-out model evaluation and fairness/error-pattern audit")
         _, test, _ = load_modeling_data()
         pprint(evaluate_heldout_test(test))
+    elif args.generate_plans:
+        print("Constraint-based academic plan generation")
+        pprint(generate_advisor_case_plans())
     else:
         parser.print_help()
 
