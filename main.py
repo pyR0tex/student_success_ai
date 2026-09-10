@@ -6,11 +6,17 @@ from src.baseline import BASELINE_THRESHOLDS, MIN_RISK_INDICATORS, add_baseline_
 from src.config import METRICS_DIR, TARGET
 from src.data_inspection import inspect_package
 from src.data_loader import load_modeling_data
+from src.early_signal_model import (
+    compare_models_with_group_cv,
+    fit_selected_model,
+    logistic_regression_coefficients,
+    save_model,
+)
 from src.evaluation import classification_metrics
 
 
 def run_training_baseline() -> dict:
-    """Evaluate the baseline on training data only."""
+    """Evaluate the rule-based baseline on training data only."""
     train, _, _ = load_modeling_data()
     scored = add_baseline_indicators(train)
 
@@ -53,6 +59,40 @@ def run_training_baseline() -> dict:
     return result
 
 
+def run_model_development() -> dict:
+    """Compare simple ML models without using the held-out test set."""
+    train, _, _ = load_modeling_data()
+    METRICS_DIR.mkdir(parents=True, exist_ok=True)
+
+    summary, predictions, selected_model = compare_models_with_group_cv(train)
+    summary.to_csv(METRICS_DIR / "model_development_comparison.csv", index=False)
+    predictions.to_csv(METRICS_DIR / "model_development_predictions.csv", index=False)
+
+    fitted_model = fit_selected_model(train, selected_model)
+    model_path = save_model(fitted_model)
+
+    coefficient_path = None
+    if selected_model == "Logistic Regression":
+        coefficient_path = METRICS_DIR / "logistic_regression_coefficients.csv"
+        logistic_regression_coefficients(fitted_model).to_csv(coefficient_path, index=False)
+
+    result = {
+        "dataset": "modeling_train.csv",
+        "validation_method": "5-fold stratified group cross-validation by Student_ID",
+        "held_out_test_used": False,
+        "selected_model": selected_model,
+        "selection_rule": "Highest cross-validated F1; recall used as tie-breaker.",
+        "model_file": str(model_path),
+        "coefficient_file": str(coefficient_path) if coefficient_path else None,
+        "models": summary.to_dict(orient="records"),
+    }
+
+    with open(METRICS_DIR / "model_development_summary.json", "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2)
+
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Student Success Early-Signal & Planning System")
     parser.add_argument(
@@ -65,6 +105,11 @@ def main() -> None:
         action="store_true",
         help="Run the rule-based baseline on training data only.",
     )
+    parser.add_argument(
+        "--develop-model",
+        action="store_true",
+        help="Compare candidate early-signal ML models using training data only.",
+    )
     args = parser.parse_args()
 
     if args.inspect_data:
@@ -73,6 +118,9 @@ def main() -> None:
     elif args.baseline_train:
         print("Rule-based baseline (training data only)")
         pprint(run_training_baseline())
+    elif args.develop_model:
+        print("Machine-learning early-signal model development")
+        pprint(run_model_development())
     else:
         parser.print_help()
 

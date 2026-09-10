@@ -7,6 +7,7 @@ METRICS_DIR = OUTPUT_DIR / "metrics"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 PLANS_DIR = OUTPUT_DIR / "plans"
 LOGS_DIR = OUTPUT_DIR / "logs"
+MODEL_DIR = OUTPUT_DIR / "models"
 
 TARGET = "Intervention_Needed_Next_8_Weeks"
 ID_COLUMN = "Student_ID"
