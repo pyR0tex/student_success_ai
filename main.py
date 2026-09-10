@@ -13,6 +13,7 @@ from src.early_signal_model import (
     save_model,
 )
 from src.evaluation import classification_metrics
+from src.heldout_evaluation import evaluate_heldout_test
 
 
 def run_training_baseline() -> dict:
@@ -110,6 +111,11 @@ def main() -> None:
         action="store_true",
         help="Compare candidate early-signal ML models using training data only.",
     )
+    parser.add_argument(
+        "--evaluate-heldout",
+        action="store_true",
+        help="Evaluate the locked baseline and selected ML model on the held-out test set and run the fairness audit.",
+    )
     args = parser.parse_args()
 
     if args.inspect_data:
@@ -121,6 +127,10 @@ def main() -> None:
     elif args.develop_model:
         print("Machine-learning early-signal model development")
         pprint(run_model_development())
+    elif args.evaluate_heldout:
+        print("Held-out model evaluation and fairness/error-pattern audit")
+        _, test, _ = load_modeling_data()
+        pprint(evaluate_heldout_test(test))
     else:
         parser.print_help()
 
