@@ -12,12 +12,8 @@ The dataset is fully synthetic. The system supports advisor judgment and does no
 
 ## Setup
 
-Bash:
-
 ```bash
 python -m venv .venv
-pip install -r requirements.txt
-python main.py --inspect-data
 ```
 
 Windows PowerShell:
@@ -30,4 +26,4 @@ python main.py --inspect-data
 
 ## Current status
 
-Phase 1 scaffold and data-package inspection are implemented. Modeling, fairness, planning, case studies, and demo layers will be added incrementally.
+Project setup and data-understanding checks are implemented, along with the rule-based baseline on training data. The machine-learning model, fairness/error-pattern audit, academic planner, case studies, decision logging, and demo layers will be added incrementally.

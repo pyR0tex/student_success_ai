@@ -62,7 +62,12 @@ def inspect_package(data_dir: Path = DATA_DIR) -> dict:
         "observation_terms": sorted(train["Observation_Term"].unique().tolist()),
     }
 
-    with open(METRICS_DIR / "phase1_summary.json", "w", encoding="utf-8") as f:
+    # Remove the old development-only filename if it exists from an earlier project version.
+    legacy_summary = METRICS_DIR / "phase1_summary.json"
+    if legacy_summary.exists():
+        legacy_summary.unlink()
+
+    with open(METRICS_DIR / "data_understanding_summary.json", "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2)
 
     return result

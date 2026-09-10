@@ -58,20 +58,20 @@ def main() -> None:
     parser.add_argument(
         "--inspect-data",
         action="store_true",
-        help="Run Phase 1 data-package inspection.",
+        help="Run data-package inspection and data-understanding checks.",
     )
     parser.add_argument(
         "--baseline-train",
         action="store_true",
-        help="Run the Phase 2 rule-based baseline on training data only.",
+        help="Run the rule-based baseline on training data only.",
     )
     args = parser.parse_args()
 
     if args.inspect_data:
-        print("Phase 1 data inspection")
+        print("Data understanding and package inspection")
         pprint(inspect_package())
     elif args.baseline_train:
-        print("Phase 2 rule-based baseline (training data only)")
+        print("Rule-based baseline (training data only)")
         pprint(run_training_baseline())
     else:
         parser.print_help()
