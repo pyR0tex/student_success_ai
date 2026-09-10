@@ -76,6 +76,17 @@ This creates a tracked `results/` directory containing selected derived artifact
 
 Raw professor-provided dataset files are not copied into `results/`.
 
+## Presentation Demo
+
+With the project virtual environment active:
+
+```bash
+python -m streamlit run demo_app.py --server.address 127.0.0.1 --browser.gatherUsageStats false
+```
+
+The dashboard uses tracked `results/` artifacts; viewing it requires no raw CSV files
+or backend rerun. See [docs/DEMO.md](docs/DEMO.md) for the presentation sequence.
+
 ## Responsible AI
 
 - `Audit_Group` is used only for post-hoc fairness analysis and never as a predictive feature.
