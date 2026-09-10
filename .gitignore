@@ -6,6 +6,7 @@ venv/
 .idea/
 .vscode/
 .DS_Store
+data/*.csv
 outputs/figures/*
 outputs/metrics/*
 outputs/plans/*
