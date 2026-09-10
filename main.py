@@ -10,7 +10,7 @@ from src.evaluation import classification_metrics
 
 
 def run_training_baseline() -> dict:
-    """Evaluate the rule-based baseline on training data only."""
+    """Evaluate the baseline on training data only."""
     train, _, _ = load_modeling_data()
     scored = add_baseline_indicators(train)
 
