@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+.DS_Store
+outputs/figures/*
+outputs/metrics/*
+outputs/plans/*
+outputs/logs/*
+!outputs/figures/.gitkeep
+!outputs/metrics/.gitkeep
+!outputs/plans/.gitkeep
+!outputs/logs/.gitkeep
