@@ -2,7 +2,9 @@ import argparse
 import json
 from pprint import pprint
 
+from src.academic_planner import generate_advisor_case_plans
 from src.baseline import BASELINE_THRESHOLDS, MIN_RISK_INDICATORS, add_baseline_indicators
+from src.case_studies import generate_end_to_end_case_studies
 from src.config import METRICS_DIR, TARGET
 from src.data_inspection import inspect_package
 from src.data_loader import load_modeling_data
@@ -13,10 +15,9 @@ from src.early_signal_model import (
     save_model,
 )
 from src.evaluation import classification_metrics
-from src.heldout_evaluation import evaluate_heldout_test
-from src.academic_planner import generate_advisor_case_plans
-from src.case_studies import generate_end_to_end_case_studies
 from src.failure_analysis import analyze_heldout_failures
+from src.heldout_evaluation import evaluate_heldout_test
+from src.results_export import export_final_results
 
 
 def run_training_baseline() -> dict:
@@ -97,8 +98,85 @@ def run_model_development() -> dict:
     return result
 
 
+def run_required_pipeline() -> dict:
+    """
+    Reproduce the complete required backend in the intended order.
+
+    The held-out set remains evaluation-only: baseline/model development occur
+    before held-out evaluation, and no later step feeds test results back into
+    model or threshold selection.
+    """
+    print("[1/7] Data Understanding")
+    data_understanding = inspect_package()
+
+    print("[2/7] Rule-Based Baseline")
+    baseline = run_training_baseline()
+
+    print("[3/7] Machine-Learning Early-Signal Model")
+    model_development = run_model_development()
+
+    print("[4/7] Held-Out Evaluation + Fairness/Error-Pattern Audit")
+    _, test, _ = load_modeling_data()
+    heldout = evaluate_heldout_test(test)
+
+    print("[5/7] Academic Plan Generation + Validation")
+    planner = generate_advisor_case_plans()
+
+    print("[6/7] End-to-End Advisor Case Studies + Decision Logging")
+    case_studies = generate_end_to_end_case_studies()
+
+    print("[7/7] Failure Analysis")
+    failure_analysis = analyze_heldout_failures()
+
+    result = {
+        "completed": True,
+        "execution_order": [
+            "Data Understanding",
+            "Rule-Based Baseline",
+            "Machine-Learning Early-Signal Model",
+            "Held-Out Evaluation + Fairness/Error-Pattern Audit",
+            "Academic Plan Generation + Validation",
+            "End-to-End Advisor Case Studies + Decision Logging",
+            "Failure Analysis",
+        ],
+        "key_checks": {
+            "train_test_student_overlap": data_understanding[
+                "train_test_student_overlap"
+            ],
+            "heldout_selected_model": heldout["selected_model"],
+            "heldout_decision_threshold": heldout["decision_threshold"],
+            "valid_advisor_case_plans": planner["valid_plans"],
+            "invalid_advisor_case_plans": planner["invalid_plans"],
+            "advisor_cases_logged": case_studies["decision_logs_written"],
+            "heldout_false_negatives": failure_analysis[
+                "heldout_false_negatives"
+            ],
+            "heldout_false_positives": failure_analysis[
+                "heldout_false_positives"
+            ],
+        },
+        "notes": [
+            "modeling_test.csv is used only for final held-out evaluation and failure analysis.",
+            "Audit_Group is used only after prediction for the fairness/error-pattern audit.",
+            "Academic plans require independent validation and human advisor review.",
+        ],
+    }
+
+    METRICS_DIR.mkdir(parents=True, exist_ok=True)
+    with open(
+        METRICS_DIR / "required_pipeline_summary.json",
+        "w",
+        encoding="utf-8",
+    ) as f:
+        json.dump(result, f, indent=2)
+
+    return result
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Student Success Early-Signal & Planning System")
+    parser = argparse.ArgumentParser(
+        description="Student Success Early-Signal & Planning System"
+    )
     parser.add_argument(
         "--inspect-data",
         action="store_true",
@@ -117,22 +195,50 @@ def main() -> None:
     parser.add_argument(
         "--evaluate-heldout",
         action="store_true",
-        help="Evaluate the locked baseline and selected ML model on the held-out test set and run the fairness audit.",
+        help=(
+            "Evaluate the locked baseline and selected ML model on the held-out "
+            "test set and run the fairness audit."
+        ),
     )
     parser.add_argument(
         "--generate-plans",
         action="store_true",
-        help="Generate and independently validate two-term academic plans for the required advisor cases.",
+        help=(
+            "Generate and independently validate two-term academic plans for "
+            "the required advisor cases."
+        ),
     )
     parser.add_argument(
         "--run-case-studies",
         action="store_true",
-        help="Run the full early-signal + planning flow for the required advisor cases and write decision logs.",
+        help=(
+            "Run the full early-signal + planning flow for the required advisor "
+            "cases and write decision logs."
+        ),
     )
     parser.add_argument(
         "--analyze-failures",
         action="store_true",
-        help="Analyze representative false-negative and false-positive failures from the held-out evaluation.",
+        help=(
+            "Analyze representative false-negative and false-positive failures "
+            "from the held-out evaluation."
+        ),
+    )
+    parser.add_argument(
+        "--run-required-pipeline",
+        action="store_true",
+        help=(
+            "Reproduce the complete required backend in the intended order. "
+            "This can take several minutes because model cross-validation is rerun."
+        ),
+    )
+    parser.add_argument(
+        "--export-results",
+        action="store_true",
+        help=(
+            "Copy final report/presentation artifacts into the tracked results/ "
+            "directory and build a manifest/presentation summary."
+        ),
     )
     args = parser.parse_args()
 
@@ -158,6 +264,12 @@ def main() -> None:
     elif args.analyze_failures:
         print("Held-out failure analysis")
         pprint(analyze_heldout_failures())
+    elif args.run_required_pipeline:
+        print("Required backend reproducibility run")
+        pprint(run_required_pipeline())
+    elif args.export_results:
+        print("Exporting final report/presentation results")
+        pprint(export_final_results())
     else:
         parser.print_help()
 
