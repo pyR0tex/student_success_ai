@@ -81,7 +81,7 @@ The original provided synthetic datasets remain in data/. The results/ directory
 With the project virtual environment active:
 
 ```bash
-python -m streamlit run demo_app.py --server.address 127.0.0.1 --browser.gatherUsageStats false
+streamlit run demo_app.py
 ```
 
 The dashboard uses tracked `results/` artifacts; viewing it requires no raw CSV files
