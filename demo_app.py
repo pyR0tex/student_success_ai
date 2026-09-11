@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -38,25 +39,16 @@ def read_result(relative_path):
 
 def show_evidence(evidence):
     st.subheader("Observed evidence")
-    st.dataframe(
-        pd.DataFrame(evidence).rename(columns={
-            "label": "Observed signal",
-            "observed_value": "Observed value",
-            "direction": "Effect on model score",
-            "contribution": "Saved log-odds contribution",
-        }).drop(columns="feature", errors="ignore"),
-        hide_index=True,
-        width="stretch",
-    )
-    st.caption(
-        "Saved local model contributions describe score direction, not personal "
-        "causes or a complete explanation of student need."
-    )
+    for item in evidence:
+        st.write(f"- **{item['label'].capitalize()}:** {item['observed_value']}")
+    with st.expander("Evidence details"):
+        st.dataframe(pd.DataFrame(evidence), hide_index=True, width="stretch")
+        st.caption("Saved model contributions describe score direction, not personal causes.")
 
 
 def show_validation(passed, issues):
     if passed is True and not issues:
-        st.success("Independent plan validation: PASSED (saved result; advisor review required).")
+        st.success("Independent plan validation: PASSED. Academic plan requires advisor review.")
     else:
         st.error("Independent plan validation: NOT PASSED. Do not treat this plan as feasible.")
         st.write(issues or "A passing validation result is unavailable.")
@@ -83,20 +75,31 @@ def overview(summary):
     metrics = pd.DataFrame({
         "Rule-Based Baseline": comparison["baseline"],
         summary["selected_model"]: comparison["machine_learning"],
-    }).loc[["precision", "recall", "f1"]].rename(index={"f1": "F1"})
-    st.bar_chart(metrics, stack=False, y_label="Score (0–1)")
-    st.dataframe(metrics.style.format("{:.2%}"), width="stretch")
-    st.caption("Fewer missed positives came with more unnecessary flags; predictions still require review.")
-    development = read_result("model/model_development_summary.json")
-    st.subheader("Why Logistic Regression?")
-    st.write(development["validation_method"] + "; training data only.")
-    st.write(development["selection_rule"])
-    st.dataframe(
-        pd.DataFrame(development["models"])[["model", "precision", "recall", "f1"]]
-        .set_index("model").style.format("{:.2%}"),
-        width="stretch",
+    }).loc[["recall", "f1", "precision"]].rename(index={"recall": "Recall", "f1": "F1", "precision": "Precision"})
+    st.info(
+        "Logistic Regression improved recall and F1 over the rule baseline. "
+        f"It caught {comparison['false_negatives_reduced_by']} more intervention cases, "
+        f"with {comparison['false_positives_added']} additional false positives."
     )
-    st.write("Logistic Regression achieved the highest development F1 and recall of the three candidates.")
+    st.markdown("**Recall — finding students who may need support**")
+    chart_data = metrics.rename_axis("Metric").reset_index().melt("Metric", var_name="Model", value_name="Score")
+    st.altair_chart(alt.Chart(chart_data).mark_bar().encode(
+        x=alt.X("Metric:N", sort=["Recall", "F1", "Precision"]),
+        y=alt.Y("Score:Q", scale=alt.Scale(domain=[0, 1])),
+        xOffset="Model:N", color="Model:N",
+        tooltip=["Metric", "Model", alt.Tooltip("Score:Q", format=".1%")],
+    ), width="stretch")
+    st.dataframe(metrics.style.format("{:.1%}"), width="stretch")
+    with st.expander("Why was Logistic Regression selected?"):
+        development = read_result("model/model_development_summary.json")
+        st.write(development["validation_method"] + "; training data only.")
+        st.write(development["selection_rule"])
+        st.dataframe(
+            pd.DataFrame(development["models"])[["model", "recall", "f1", "precision"]]
+            .rename(columns={"recall": "Recall", "f1": "F1", "precision": "Precision"})
+            .set_index("model").style.format("{:.1%}"), width="stretch",
+        )
+        st.write("Logistic Regression achieved the highest development F1 and recall of the three candidates.")
 
 
 def case_explorer():
@@ -104,7 +107,7 @@ def case_explorer():
     cases = {case["Case_ID"]: case for case in read_result("cases/advisor_case_studies.json")}
     plans = {plan["Case_ID"]: plan for plan in read_result("planner/advisor_case_plans.json")}
     courses = read_result("planner/advisor_case_course_plans.csv")
-    st.session_state.setdefault("advisor_case", "Case_02")
+    st.session_state.setdefault("advisor_case", "Case_06")
     shortcuts = st.columns(2)
     if shortcuts[0].button("Show Case_02: prerequisites"):
         st.session_state["advisor_case"] = "Case_02"
@@ -119,52 +122,59 @@ def case_explorer():
     plan = plans[selected]
     signal = case["Early_Signal"]
     st.subheader(f"{case['Case_ID']} · {case['Student_ID']} · {case['Program_ID']}")
-    columns = st.columns(3)
-    columns[0].metric("ML risk score", f"{signal['Risk_Score']:.6f}")
-    columns[1].metric("Locked decision threshold", f"{signal['Decision_Threshold']:.2f}")
-    columns[2].metric("Baseline risk-indicator count", signal["Baseline_Risk_Count"])
-    st.write(f"**Advisor-review flag:** {str(signal['Advisor_Review_Flag']).lower()}")
+    columns = st.columns(4)
+    columns[0].metric("Risk score", f"{signal['Risk_Score']:.1%}")
+    columns[1].metric("Threshold", f"{signal['Decision_Threshold']:.0%}")
+    columns[2].metric("Early-signal advisor flag", "YES" if signal["Advisor_Review_Flag"] else "NO")
+    columns[3].metric("Baseline risk indicators", signal["Baseline_Risk_Count"])
+    st.caption("The early-signal flag uses the locked 50% threshold. Every academic plan requires advisor review.")
+    if selected == "Case_02":
+        st.warning("Near-threshold result — treat with extra uncertainty.")
     show_evidence(signal["Observed_Evidence"])
     st.subheader("Saved recommended academic plan")
     show_validation(plan.get("Validation_Passed"), plan.get("Validation_Issues", []))
-    st.caption("This displays the backend's independent validation; the dashboard does not generate or revalidate plans.")
     for column, term in zip(st.columns(2), ("T6_Spring", "T7_Fall")):
         with column:
-            st.metric(f"{term} credits", plan[f"{term}_Credits"])
-            st.write(", ".join(plan[term]) or "No courses recommended")
+            st.metric(f"{term.replace('_', ' ')} credits", plan[f"{term}_Credits"])
             term_rows = courses[(courses["Case_ID"] == selected) & (courses["Term_ID"] == term)]
             st.dataframe(
-                term_rows[["Course_ID", "Credits", "Prerequisites"]],
+                term_rows[["Course_ID", "Credits"]].rename(columns={"Course_ID": "Course"}),
                 hide_index=True, width="stretch",
             )
     st.subheader("Cross-term prerequisite relationships")
-    relationships = []
+    relationships = {}
     fall_rows = courses[(courses["Case_ID"] == selected) & (courses["Term_ID"] == "T7_Fall")]
     for course in fall_rows.itertuples(index=False):
         for prerequisite in str(course.Prerequisites).split(";"):
             if prerequisite in plan["T6_Spring"]:
-                relationships.append(
-                    f"{prerequisite} (Spring) → if successfully completed, satisfies prerequisite → "
-                    f"{course.Course_ID} (Fall)"
-                )
-    for relationship in relationships:
-        st.info(relationship)
-    if not relationships:
-        st.write("No Spring-to-Fall prerequisite links appear in this case's exported course rows.")
-    st.warning("Successful Spring completion is not guaranteed. Revisit Fall selections if it does not occur.")
-    st.subheader("Planning constraints / assumptions")
-    st.write(f"**Maximum_Recommended_Credits:** {plan['Maximum_Recommended_Credits']} per term")
-    for note in case["Academic_Plan"]["Constraints_and_Assumptions"]:
-        st.write(note)
-    st.write(plan["Planning_Assumption"])
-    st.write(
-        "Successfully completed courses cannot be recommended again. Prerequisites must "
-        "be completed before the dependent term; same-term completion does not count. "
-        "Courses must be available that term and contribute to remaining degree requirements."
+                relationships.setdefault(prerequisite, []).append(course.Course_ID)
+    for prerequisite, dependents in relationships.items():
+        st.info(f"{prerequisite} · T6 Spring\n\n↓ if successfully completed\n\n{' + '.join(dependents)} · T7 Fall")
+    if relationships:
+        st.caption("Spring courses can unlock Fall courses only if successfully completed.")
+    else:
+        st.caption("No Spring-to-Fall prerequisite links in this plan.")
+    st.subheader("Planner checks")
+    st.markdown(
+        "- Prerequisites completed before the dependent term\n"
+        "- Courses offered that term\n"
+        "- Previously completed courses excluded\n"
+        "- Courses support remaining degree requirements\n"
+        f"- Credit limit: {plan['Maximum_Recommended_Credits']} per term"
     )
-    st.subheader("Uncertainty and human review")
-    st.write(case["Uncertainty_and_Oversight"])
-    st.write(f"**Human review required:** {str(case['Human_Review_Required']).lower()}")
+    with st.expander("Planner constraints and assumptions"):
+        for note in case["Academic_Plan"]["Constraints_and_Assumptions"]:
+            st.write(note)
+        st.write(plan["Planning_Assumption"])
+        st.write("Same-term prerequisite completion does not count. Successfully completed courses cannot be recommended again.")
+        st.dataframe(courses[courses["Case_ID"] == selected], hide_index=True, width="stretch")
+        st.caption("Validation is the saved independent backend result; the dashboard does not generate or revalidate plans.")
+    st.write(
+        "Risk scores are early signals, not diagnoses. Academic plans require advisor review. "
+        "Fall recommendations must be revisited if required Spring courses are not successfully completed."
+    )
+    with st.expander("Full uncertainty and limitations"):
+        st.write(case["Uncertainty_and_Oversight"])
 
 
 def fairness(summary):
@@ -174,94 +184,105 @@ def fairness(summary):
         "recall": "Recall", "false_positive_rate": "False-positive rate",
         "false_negative_rate": "False-negative rate",
     })
-    st.bar_chart(chart, stack=False, y_label="Rate (0–1)")
-    st.dataframe(chart.style.format("{:.2%}"), width="stretch")
+    order = ["Recall", "False-positive rate", "False-negative rate"]
+    chart_data = chart.reset_index().melt("Audit_Group", var_name="Metric", value_name="Rate")
     st.warning(
-        "Recall is relatively similar across the synthetic groups, but Audit_C "
-        "has a noticeably higher false-positive rate."
+        "Main finding: recall is similar across groups, but Audit_C has the highest "
+        f"false-positive rate ({rates.loc['Audit_C', 'false_positive_rate']:.2%})."
     )
-    st.write(
-        "Audit_Group was never a predictive feature. These groups are synthetic. "
-        "This post-hoc analysis identifies subgroup error patterns; it does not "
-        "establish real-world demographic fairness."
-    )
+    st.write("Audit_Group was not used for prediction. These synthetic groups support error-pattern analysis, not claims of real-world demographic fairness.")
+    st.altair_chart(alt.Chart(chart_data).mark_bar().encode(
+        x=alt.X("Audit_Group:N", title="Audit group"),
+        y=alt.Y("Rate:Q", scale=alt.Scale(domain=[0, 1])),
+        xOffset=alt.XOffset("Metric:N", sort=order),
+        color=alt.Color("Metric:N", sort=order, scale=alt.Scale(domain=order)),
+        tooltip=["Audit_Group", "Metric", alt.Tooltip("Rate:Q", format=".2%")],
+    ), width="stretch")
+    with st.expander("Exact subgroup metrics"):
+        st.dataframe(rates, width="stretch")
 
 
 def failures(summary):
     st.header("Failure analysis")
-    st.caption(summary["failure_analysis"]["selection_rule"])
     st.warning("Academic and engagement indicators are signals, not causes. Even confident predictions can be wrong.")
     for column, failure in zip(st.columns(2), read_result("model/failure_analysis.json")):
         with column:
-            st.subheader(f"{failure['Error_Type']} · {failure['Student_ID']}")
-            st.caption(f"Observation term: {failure['Observation_Term']}")
-            st.metric("ML risk score", f"{failure['ML_Risk_Score']:.6f}")
-            st.write(f"**Predicted result:** {failure['ML_Prediction']}")
-            st.write(f"**Actual result:** {failure['Actual_Outcome']}")
-            st.caption("Synthetic target: 1 = intervention needed within eight weeks; 0 = not needed.")
-            st.dataframe(
-                pd.DataFrame(failure["Observed_Features"].items(), columns=["Observed feature", "Value"]),
-                hide_index=True, width="stretch",
-            )
-            st.write(failure["Interpretation"])
-            st.write("**Potential consequence:** " + failure["Potential_Consequence"])
-            st.write("**Lesson / potential improvement:** " + failure["Potential_Improvement"])
+            st.subheader(failure["Error_Type"])
+            st.write(failure["Student_ID"])
+            st.metric("Risk score", f"{failure['ML_Risk_Score']:.1%}")
+            outcomes = {0: "No intervention needed", 1: "Intervention needed"}
+            st.write(f"**Predicted:** {outcomes[failure['ML_Prediction']]}")
+            st.write(f"**Actual:** {outcomes[failure['Actual_Outcome']]}")
+            features = failure["Observed_Features"]
+            st.write(f"- GPA change: {features['GPA_Change']:+.2f}")
+            if failure["Error_Type"] == "False Negative":
+                st.write(f"- Pass rate: {features['Course_Pass_Rate_Last_2_Terms']:.1%}")
+            st.write(f"- Failed courses: {features['Failed_Courses_Last_2_Terms']}")
+            if failure["Error_Type"] == "False Positive":
+                st.write(f"- Withdrawals: {features['Withdrawals_Last_2_Terms']}")
+            st.write(f"- Assignment submission: {features['Assignment_Submission_Rate_4wk']:.1%}")
+            if failure["Error_Type"] == "False Negative":
+                st.write(f"- Days since last LMS activity: {features['Days_Since_Last_LMS_Activity']}")
+                st.write("Risk: a student who needs support could be missed or reviewed late.")
+            else:
+                st.write(f"- Average assignment score: {features['Average_Assignment_Score_4wk']:.1f}")
+                st.write("Risk: unnecessary advisor review or avoidable concern.")
+            with st.expander("View all observed features"):
+                st.caption(f"Observation term: {failure['Observation_Term']}")
+                st.dataframe(pd.DataFrame(features.items(), columns=["Observed feature", "Value"]), hide_index=True, width="stretch")
+            with st.expander("Interpretation and improvements"):
+                st.write(failure["Interpretation"])
+                st.write(failure["Potential_Consequence"])
+                st.write(failure["Potential_Improvement"])
+    st.info("Lesson: model signals are incomplete, so advisor context remains necessary.")
+    with st.expander("Failure example selection"):
+        st.write(summary["failure_analysis"]["selection_rule"])
 
 
 def decision_audit():
     st.header("Decision audit / logging")
     records = {record["case_id"]: record for record in read_result("logs/advisor_case_decision_log.jsonl")}
-    selected = st.selectbox("Saved decision record", sorted(records), format_func=case_label)
+    selected = st.selectbox("Saved decision record", sorted(records), index=sorted(records).index("Case_06"), format_func=case_label)
     record = records[selected]
-    st.subheader(f"{record['case_id']} · {record['student_id']}")
-    st.write(f"**Model:** {record['model']} · **Saved at:** {record['timestamp_utc']}")
+    st.write(f"**Model:** {record['model']}")
+    columns = st.columns(4)
+    columns[0].metric("Risk score", f"{record['risk_score']:.1%}")
+    columns[1].metric("Threshold", f"{record['decision_threshold']:.0%}")
+    columns[2].metric("Early-signal advisor flag", "YES" if record["advisor_review_flag"] else "NO")
+    passed = record.get("plan_validation_passed") is True and not record.get("plan_validation_issues", [])
+    columns[3].metric("Plan validation", "PASSED" if passed else "NOT PASSED")
     columns = st.columns(3)
-    columns[0].metric("Risk score", f"{record['risk_score']:.6f}")
-    columns[1].metric("Threshold", f"{record['decision_threshold']:.2f}")
-    columns[2].metric("Advisor-review flag", str(record["advisor_review_flag"]).lower())
-    show_evidence(record["observed_evidence"])
-    st.subheader("Saved recommended plan")
-    show_validation(record.get("plan_validation_passed"), record.get("plan_validation_issues", []))
-    st.json(record["recommended_plan"], expanded=True)
-    st.subheader("Constraints / planning assumptions")
-    for note in record["constraints_and_assumptions"]:
-        st.write(note)
-    for field in (
-        "human_approval_required", "autonomous_student_contact_allowed",
-        "autonomous_course_registration_allowed",
-    ):
-        st.write(f"**{field.replace('_', ' ')}:** {str(record[field]).lower()}")
-    st.caption(
-        "The saved record names the model and requires approval. It does not record "
-        "a distinct model version or completed human approval; neither is inferred here."
-    )
-    with st.expander("Full saved decision record", expanded=True):
-        st.json(record, expanded=True)
+    columns[0].metric("Human approval", "REQUIRED" if record["human_approval_required"] else "NOT REQUIRED")
+    columns[1].metric("Autonomous student contact", "ALLOWED" if record["autonomous_student_contact_allowed"] else "NOT ALLOWED")
+    columns[2].metric("Autonomous course registration", "ALLOWED" if record["autonomous_course_registration_allowed"] else "NOT ALLOWED")
+    with st.expander("Evidence recorded"):
+        show_evidence(record["observed_evidence"])
+    with st.expander("Plan and constraints recorded"):
+        show_validation(record.get("plan_validation_passed"), record.get("plan_validation_issues", []))
+        st.json(record["recommended_plan"])
+        for note in record["constraints_and_assumptions"]:
+            st.write(note)
+    with st.expander("Full raw decision log"):
+        st.json(record)
+    with st.expander("Record metadata and limitations"):
+        st.write(f"{record['case_id']} · {record['student_id']} · Saved at: {record['timestamp_utc']}")
+        st.caption("The saved record has no distinct model-version field or completed-human-approval field; neither is inferred here.")
 
 
 def reproducibility(summary):
     st.header("Reproducibility")
     dataset = summary["dataset"]
     columns = st.columns(3)
-    columns[0].metric("Training rows", dataset["training_rows"])
-    columns[1].metric("Held-out rows", dataset["test_rows"])
+    columns[0].metric("Training rows", f"{dataset['training_rows']:,}")
+    columns[1].metric("Held-out rows", f"{dataset['test_rows']:,}")
     columns[2].metric("Train/test student overlap", dataset["train_test_student_overlap"])
-    st.write(
-        "Results are derived artifacts from the completed backend. Professor-provided "
-        "source CSV files remain excluded from Git. This demo reads only tracked results/ "
-        "files and needs neither the raw data nor the fitted model."
-    )
-    st.write(
-        "Student_ID is an identifier and Audit_Group is for post-hoc auditing; neither "
-        "is a predictive feature. The held-out data is reserved for final evaluation "
-        "and is never used to fit models, select hyperparameters, tune thresholds, or engineer rules."
-    )
-    st.caption(f"Results exported at: {summary['generated_at_utc']}")
-    st.info(
-        "Threshold sensitivity explorer omitted: results/ does not contain the full "
-        "held-out predictions needed for this optional post-hoc educational visualization. "
-        "The official threshold remains locked at 0.50."
-    )
+    st.write("Held-out students were separate from training students, and the test set was used only for final evaluation.")
+    st.caption("The dashboard reads tracked derived results rather than raw source data.")
+    with st.expander("Reproducibility details"):
+        st.write("Student_ID is an identifier and Audit_Group is for post-hoc auditing; neither is a predictive feature.")
+        st.write("Held-out data was never used to fit models, select hyperparameters, tune thresholds, or engineer rules.")
+        st.write("Source CSVs remain excluded from Git. The demo needs neither raw data nor a fitted model.")
+        st.caption(f"Results exported at: {summary['generated_at_utc']}")
     with st.expander("Exported-results manifest"):
         manifest = read_result("manifest.json")
         st.write(manifest["note"])
@@ -276,7 +297,7 @@ def main():
     st.sidebar.title("Presentation")
     section = st.sidebar.radio("Section", SECTIONS)
     st.sidebar.write(f"Official threshold: **{summary['decision_threshold']:.2f} (locked)**")
-    st.sidebar.caption("Human approval required. No autonomous student contact or course registration.")
+    st.sidebar.caption("Human review required. No autonomous contact or registration.")
     try:
         if section == SECTIONS[0]:
             overview(summary)

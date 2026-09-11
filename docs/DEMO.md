@@ -1,54 +1,55 @@
 # Presentation demo
 
-From the repository root, activate the project's virtual environment and launch:
+From the repository root, activate the environment and launch:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 python -m streamlit run demo_app.py --server.address 127.0.0.1 --browser.gatherUsageStats false
 ```
 
-Open http://127.0.0.1:8501 if the browser does not open automatically. Stop with Ctrl+C.
-For a fresh environment, install `python -m pip install -r requirements-lock.txt` first.
-The dashboard reads tracked `results/` artifacts only. Raw CSVs, fitted model files,
-and a backend rerun are unnecessary. If an artifact is missing, restore the complete
-tracked results export and reload; the UI displays the affected filename.
+Open http://127.0.0.1:8501. Stop with Ctrl+C. For a fresh environment, install
+`python -m pip install -r requirements-lock.txt` first. Only tracked `results/`
+artifacts are needed; missing artifacts show a restore message.
 
-## Suggested sequence (5–7 minutes)
+## Live sequence (5–7 minutes)
 
-1. **Project overview:** Explain synthetic decision support. Compare held-out precision,
-   recall, and F1; ML missed 20 fewer positives but added 16 false positives. Show 12/12
-   validated plans. Explain that Logistic Regression won on training-only group-CV F1,
-   with recall as the tie-breaker, before held-out evaluation.
-2. **Advisor case explorer:** Start with default **Case_02**. Spring `Program_A_C02`
-   enables Fall `Program_A_C04` and `Program_A_C05` only if successfully completed.
-   Point to credits, saved independent validation, and the near-threshold uncertainty.
-   Use the **Case_06** shortcut to show the flagged score and observed LMS inactivity,
-   submission rate, and GPA change. All 12 cases are available in the dropdown.
-3. **Fairness / error-pattern audit:** Compare recall, false-positive rate, and
-   false-negative rate. Highlight Audit_C's higher false-positive rate despite similar
-   recall. Audit_Group was excluded from prediction; synthetic subgroup patterns do
-   not establish real-world demographic fairness.
-4. **Failure analysis:** Contrast Student_1383 (false negative) and Student_0880
-   (false positive). Read their observed features and explain the consequences and
-   potential improvements. Confident predictions can still be wrong.
-5. **Decision audit / logging:** Select Case_06. Show the saved score, threshold,
-   evidence, plan, constraints, validator result, and approval/autonomy fields, then
-   the full JSON record. Model version and completed approval are not in the saved
-   log; the UI does not invent them or write new decisions.
-6. **Reproducibility:** Show training/held-out row counts, zero student overlap,
-   and the exported manifest. Distinguish derived tracked results from excluded source CSVs.
+1. **Project overview — 1 minute:** Logistic Regression improved recall and F1.
+   Highlight 20 fewer false negatives, 16 additional false positives, and 12/12
+   validated academic plans. Read the chart in order: Recall → F1 → Precision.
+   Open “Why was Logistic Regression selected?” only if asked about training-only
+   group cross-validation, the three candidate models, or the F1/recall selection rule.
+2. **Case_06 — 1 minute:** The default early-signal example shows 77.6% risk,
+   a locked 50% threshold, YES flag, and 5 baseline indicators. Point to 7 days
+   since LMS activity, 68% submission, and −0.40 GPA change, then the validated
+   Spring/Fall plan and conditional prerequisite link.
+3. **Case_02 — 1 minute:** Use the prerequisite shortcut. Risk is 49.5%, just
+   below threshold: the early-signal flag is NO, but the academic plan still
+   requires advisor review. Spring Program_A_C02 unlocks Fall Program_A_C04
+   and Program_A_C05 only if successfully completed. Show the near-threshold warning.
+4. **Fairness audit — 45 seconds:** Recall is similar; Audit_C has the highest
+   false-positive rate (43.52%). Synthetic audit groups were excluded from
+   prediction and do not establish real-world demographic fairness.
+5. **Failure analysis — 1 minute:** Contrast Student_1383 (18.4%, false negative)
+   with Student_0880 (90.3%, false positive). Point to observed signals and the
+   risk of missed support versus unnecessary review. Even confident predictions
+   can be wrong; signals are not causes.
+6. **Decision audit / logging — 45 seconds:** Case_06 opens by default. Show
+   validation and the three safety controls. For “what gets logged?”, open
+   “Full raw decision log.” Evidence and plan constraints are also expandable.
 
-## Responsible AI and scope
+## Backup / Q&A
 
-Signals are evidence for advisor review, not diagnoses or personal causal explanations.
-Plans require independent validation and human review; successful Spring completion
-is conditional. There is no autonomous outreach, registration, or optional agentic extension.
-The demo does not change models, thresholds, plans, logs, or reported results.
+- **Reproducibility:** 5,148 training rows, 1,452 held-out rows, zero student
+  overlap. The test set was used only for final evaluation. Methodology,
+  export timestamp, and manifest are collapsed.
+- **Planner details:** Open “Planner constraints and assumptions.” Completed
+  courses are excluded; prerequisites must precede the dependent term; availability,
+  remaining degree requirements, and credit limits constrain every plan.
+- **Limitations:** Open “Full uncertainty and limitations.” Scores are early
+  signals, not diagnoses; advisor context may be missing from synthetic data.
+- **Log metadata:** The secondary detail area explains that distinct model-version
+  and completed-human-approval fields are absent from the saved export.
 
-The optional threshold explorer is omitted because full held-out predictions are not
-exported in `results/`. Any future explorer must be labeled **POST-HOC EDUCATIONAL
-VISUALIZATION**, must not tune the model, and must preserve the official 0.50 threshold
-and all final reported metrics.
-
-Before presenting, check chart/table readability at your projector resolution and
-rehearse the Case_02 → Case_06 shortcuts and saved-log dropdown.
+Before presenting, check readability at projector resolution, the Case_06/Case_02
+shortcuts, and the collapsed raw log. Human review is required; autonomous contact
+and registration are not allowed. The dashboard does not change backend results.

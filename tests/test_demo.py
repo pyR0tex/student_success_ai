@@ -52,10 +52,34 @@ class DemoTests(unittest.TestCase):
                 self.assertIn("if successfully completed", links)
                 self.app.button[1].click().run()
                 self.assertEqual(self.app.selectbox[0].value, "Case_06")
-                self.assertIn("0.775765", [item.value for item in self.app.metric])
+                self.assertIn("77.6%", [item.value for item in self.app.metric])
         self.assertEqual(before, self.result_hashes())
         self.assertFalse((self.root / "data").exists())
         self.assertFalse((self.root / "outputs").exists())
+
+    def test_presentation_defaults_and_collapsed_details(self):
+        self.app.run()
+        self.assertFalse(self.app.expander[0].proto.expanded)
+        self.app.radio[0].set_value("Advisor case explorer").run()
+        self.assertEqual(self.app.selectbox[0].value, "Case_06")
+        values = {item.label: item.value for item in self.app.metric}
+        self.assertEqual(values["Risk score"], "77.6%")
+        self.assertEqual(values["Early-signal advisor flag"], "YES")
+        self.app.button[0].click().run()
+        values = {item.label: item.value for item in self.app.metric}
+        self.assertEqual(values["Risk score"], "49.5%")
+        self.assertEqual(values["Early-signal advisor flag"], "NO")
+        self.assertIn("Near-threshold result", self.app.warning[0].value)
+        self.app.radio[0].set_value("Decision audit / logging").run()
+        self.assertEqual(self.app.selectbox[0].value, "Case_06")
+        values = {item.label: item.value for item in self.app.metric}
+        self.assertEqual(values["Plan validation"], "PASSED")
+        self.assertEqual(values["Human approval"], "REQUIRED")
+        self.assertEqual(values["Autonomous student contact"], "NOT ALLOWED")
+        self.assertEqual(values["Autonomous course registration"], "NOT ALLOWED")
+        for expander in self.app.expander:
+            self.assertFalse(expander.proto.expanded, expander.label)
+        self.assert_rendered()
 
     def test_missing_artifact_has_actionable_message(self):
         (self.root / "results" / "presentation_data.json").unlink()
@@ -83,6 +107,7 @@ class DemoTests(unittest.TestCase):
         self.app.run()
         self.app.radio[0].set_value("Advisor case explorer").run()
         self.assertEqual(list(self.app.exception), [])
+        self.app.selectbox[0].set_value("Case_02").run()
         self.assertEqual(list(self.app.success), [])
         self.assertIn("Do not treat this plan as feasible", self.app.error[0].value)
 
