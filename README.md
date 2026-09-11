@@ -18,7 +18,15 @@ The dataset is fully synthetic. The system is designed to support advisor judgme
 Python 3.13.5
 ```
 
-### Bash
+### macOS/Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Git Bash on Windows
 
 ```bash
 python -m venv .venv
