@@ -6,12 +6,13 @@ venv/
 .idea/
 .vscode/
 .DS_Store
-data/*.csv
+
 outputs/figures/*
 outputs/metrics/*
 outputs/plans/*
 outputs/logs/*
 outputs/cases/*
+
 !outputs/figures/.gitkeep
 !outputs/metrics/.gitkeep
 !outputs/plans/.gitkeep
